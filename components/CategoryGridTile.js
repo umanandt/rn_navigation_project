@@ -17,7 +17,8 @@ function CategoryGridTile({ title, color, onPress }) {
     </View>
   );
 }
-
+// pressable element has on Press function 
+// button also has onPress function
 // npm install @react-navigation/native
 // expo install react-native-screens react-native-safe-area-context
 

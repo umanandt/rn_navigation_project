@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import MealDetails from "./MealDetails";
+import MealDetails from "../MealDetails";
 
 function MealItem({
   id,
@@ -27,6 +27,10 @@ function MealItem({
       mealId: id,
     });
   }
+
+  // navigation.navigate means we want to naovgate to that page 
+  // in the above case Meals Detail Screen page and sending ID
+  // there to match the data and show exact details
 
   return (
     <View style={styles.mealItem}>
@@ -64,6 +68,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
+    
   },
 
   innerContainer: {

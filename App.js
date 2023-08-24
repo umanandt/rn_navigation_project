@@ -9,6 +9,9 @@ import FavoritesScreen from "./screens/FavoritesScreen";
 import { Ionicons } from "@expo/vector-icons";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealsDetailScreen from "./screens/MealsDetailScreen";
+//import FavoritesContextProvider from "./store/context/favorites-context";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,14 +42,16 @@ function DrawerNavigator() {
           ),
         }}
       />
-      <Drawer.Screen name="Favorites" component={FavoritesScreen}
-      options={{
+      <Drawer.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
           title: "All Favorites",
           drawerIcon: ({ color, size }) => (
             <Ionicons name="star" color={color} size={size} />
           ),
         }}
-       />
+      />
     </Drawer.Navigator>
   );
 }
@@ -60,46 +65,54 @@ export default function App() {
     <>
       <GestureHandlerRootView style={styles.container}>
         <StatusBar style="light" />
-        <NavigationContainer>
-          <Stack.Navigator
-          // I can cut and paster screen option (see drawer.navigator) for all the setting
-          >
-            <Stack.Screen
-              name="Drawer"
-              //component={CategoriesScreen}
-              component={DrawerNavigator}
-              // rather than calling a components I called Drawer function and Drawer
-              // function has all the components
+        {/*<FavoritesContextProvider>*/}
+        <Provider store={store}>
+          <NavigationContainer>
+            <Stack.Navigator
+            // I can cut and paster screen option (see drawer.navigator) for all the setting
+            >
+              <Stack.Screen
+                name="Drawer"
+                //component={CategoriesScreen}
+                component={DrawerNavigator}
+                // rather than calling a components I called Drawer function and Drawer
+                // function has all the components
 
-              options={{
-                // title: "All categories",
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="MealsOverview"
-              component={MealsOverviewScreen}
-              // options= {({ route, navigation }) => {
-              //   const catId = route.params.categoryId;
-              //   return {
-              //     title: catId,
-              // }
-              // }} we can do all here another of setting "OPTIONS"
-            />
-            <Stack.Screen
-              name="MealsDetailScreen"
-              component={MealsDetailScreen}
-              //  options={{
-              //  headerRight: () => {
-              //    return <Button title="Tap Me!" onPress={}/>;
-              //  },
-              // }}
-              // if don't need direct interection from screen component
-              // then this method will work by using options and creating
-              // header right and including button
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+                options={{
+                  // title: "All categories",
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="MealsOverview"
+                component={MealsOverviewScreen}
+                options={{
+                  headerStyle: { backgroundColor: "#351401" },
+                  headerTintColor: "white",
+                }}
+                // options= {({ route, navigation }) => {
+                //   const catId = route.params.categoryId;
+                //   return {
+                //     title: catId,
+                // }
+                // }} we can do all here another of setting "OPTIONS"
+              />
+              <Stack.Screen
+                name="MealsDetailScreen"
+                component={MealsDetailScreen}
+                options={{
+                  headerStyle: { backgroundColor: "#351401" },
+                  headerTintColor: "white",
+                }}
+
+                // if don't need direct interection from screen component
+                // then this method will work by using options and creating
+                // header right and including button
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+          {/*</FavoritesContextProvider>*/}
+        </Provider>
       </GestureHandlerRootView>
     </>
   );
